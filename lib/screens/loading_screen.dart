@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'package:WeatherApp/screens/location_screen.dart';
+import 'package:WeatherApp/services/location.dart';
+import 'package:WeatherApp/services/networking.dart';
+import 'package:WeatherApp/utilities/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import '../services/location.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -8,6 +12,8 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  var latitude;
+  var longitude;
   @override
   void initState() {
     super.initState();
@@ -17,19 +23,40 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getCurrentLocation() async {
     Location location = Location();
     await location.getCurrentLocation();
-    print('Latitude ${location.latitude.toString()}');
-    print('Longitude' + location.longitude.toString());
-  }
-
-  void getData() async {
-    http.Response response = await http.get(
-        'https://api.openweathermap.org/data/2.5/weather?lat=6.486486486486487&lon=3.04652930019801&appid=52978192364d8851a6026420f272d67d');
-    print(response.statusCode);
+    NetworkHelper networkHelper = NetworkHelper(
+        url:
+            'https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$kApiKey&units=metric');
+    var weatherData = await networkHelper.getData();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return LocationScreen(
+          LocationWeather: weatherData,
+        );
+      }),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    getData();
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SpinKitDoubleBounce(
+            color: Color(0xFFffffff),
+            size: 100,
+          ),
+          Text(
+            'Getting Your Current Location',
+            style: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontFamily: 'Spartan MB',
+                fontSize: 20),
+          ),
+        ],
+      )),
+    );
   }
 }

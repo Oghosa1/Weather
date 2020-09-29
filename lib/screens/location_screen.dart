@@ -1,12 +1,36 @@
 import 'package:WeatherApp/utilities/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:unit_conversion/unit_conversion.dart';
 
 class LocationScreen extends StatefulWidget {
+  final LocationWeather;
+  LocationScreen({this.LocationWeather});
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  int condition;
+  int temperature;
+  String city;
+  double temTocel;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateUI(widget.LocationWeather);
+  }
+
+  void updateUI(dynamic weatherData) {
+    condition = weatherData['weather'][0]['id'];
+    double temp = weatherData['main']['temp'];
+    temperature = temp.toInt();
+    city = weatherData['name'];
+    // temTocel = UnitConverter.kelvinToCelsius(temperature);
+    // print(temTocel);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +73,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '${temperature}°',
                       style: kTempTextStyle,
                     ),
                     Text(
@@ -62,7 +86,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  "It's 🍦 time in ${city.toString()}!",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
@@ -74,3 +98,9 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
+
+// var longitude = jsonDecode(data)['coord']['lon'];
+// var latitude = jsonDecode(data)['coord']['lat'];
+// var weatherDescription = jsonDecode(data)['weather'][0]['description'];
+// var temperature = jsonDecode(data)['main']['temp'];
+// var city = jsonDecode(data)['name'];
