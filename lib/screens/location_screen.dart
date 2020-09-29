@@ -24,7 +24,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void updateUI(dynamic weatherData) {
     condition = weatherData['weather'][0]['id'];
-    double temp = weatherData['main']['temp'];
+    int temp = weatherData['main']['temp'];
     temperature = temp.toInt();
     city = weatherData['name'];
     // temTocel = UnitConverter.kelvinToCelsius(temperature);
