@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:WeatherApp/utilities/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:unit_conversion/unit_conversion.dart';

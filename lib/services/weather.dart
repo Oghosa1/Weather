@@ -24,10 +24,18 @@ class WeatherModel {
       return 'It\'s 🍦 time';
     } else if (temp > 20) {
       return 'Time for shorts and 👕';
-    } else if (temp < 10) {
-      return 'You\'ll need 🧣 and 🧤';
-    } else {
-      return 'Bring a 🧥 just in case';
+    } else if (temp > 15) {
+      return 'Not bad if you have 🧥 on';
+    } else if (temp > 10) {
+      return 'Time for  🧤🧥';
+    } else if (temp <= 9) {
+      return 'Time for  🧣🧤🧥';
     }
   }
 }
+
+// else if (temp < 10) {
+//   return 'You\'ll need 🧣 and 🧤';
+// } else {
+//   return 'Bring a 🧥 just in case';
+// }
