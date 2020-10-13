@@ -34,7 +34,8 @@ class _LocationScreenState extends State<LocationScreen> {
         weatherMessage = 'Unable to get weather data';
         return;
       }
-      temperature = weatherData['main']['temp'];
+      double temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
       var condition = weatherData['weather'][0]['id'];
       weatherIcon = weather.getWeatherIcon(condition);
       weatherMessage = weather.getMessage(temperature);
