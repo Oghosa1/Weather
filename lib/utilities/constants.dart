@@ -20,3 +20,4 @@ const kConditionTextStyle = TextStyle(
 );
 
 const kApiKey = '52978192364d8851a6026420f272d67d';
+const kWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
