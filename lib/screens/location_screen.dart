@@ -1,3 +1,4 @@
+import 'package:WeatherApp/screens/city_screen.dart';
 import 'package:WeatherApp/services/weather.dart';
 import 'package:WeatherApp/utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +35,8 @@ class _LocationScreenState extends State<LocationScreen> {
         weatherMessage = 'Unable to get weather data';
         return;
       }
-      double temp = weatherData['main']['temp'];
-      temperature = temp.toInt();
+      temperature = weatherData['main']['temp'];
+      // temperature = temp.toInt();
       var condition = weatherData['weather'][0]['id'];
       weatherIcon = weather.getWeatherIcon(condition);
       weatherMessage = weather.getMessage(temperature);
@@ -78,7 +79,16 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CityScreen();
+                          },
+                        ),
+                      );
+                    },
                     child: Icon(
                       Icons.location_city,
                       size: 50.0,
