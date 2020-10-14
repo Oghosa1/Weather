@@ -35,7 +35,7 @@ class _CityScreenState extends State<CityScreen> {
                 padding: EdgeInsets.all(20.0),
                 child: TextField(
                   style: TextStyle(color: Colors.black),
-                  decoration: kInputDecorator,
+                  decoration: kInputDecorator,// Saved the codes in the constant file
                   onChanged: (value) {
                     print(value);
                   },
